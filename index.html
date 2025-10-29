@@ -73,7 +73,6 @@
   .sq.gray{background:#3b445a}
 </style>
 
-<!-- NOINDEX SOLO STAGING -->
 <meta name="robots" content="noindex,nofollow,max-snippet:-1,max-image-preview:large">
 <link rel="canonical" href="https://ixo.ar/">
 </head>
@@ -307,7 +306,6 @@ document.getElementById('imageModal').addEventListener('click', function(){
 <script>
 /* === MINI-TFs DINÁMICO · %K lento (8,2,3) · UMBRAL 15/85 · Binance→OKX · sin parpadeo === */
 
-/** Pares especiales si el ticker difiere */
 function getPairFromSymbol(sym){
   const manual = {
     POL:{binance:'POLUSDT', okx:'POL-USDT'},
@@ -320,15 +318,12 @@ function getPairFromSymbol(sym){
   return manual[sym] ?? { binance: sym + 'USDT', okx: sym + '-USDT' };
 }
 
-/** Timeframes */
 const TF_TO_BINANCE = { '1h':'1h', '4h':'4h', '1d':'1d', '1w':'1w' };
 const TF_TO_OKX     = { '1h':'1H', '4h':'4H', '1d':'1D', '1w':'1W' };
 
-/** Umbrales */
-const STOCH_LOW  = 15; // ≤15 → verde
-const STOCH_HIGH = 85; // ≥85 → rojo
+const STOCH_LOW  = 15;
+const STOCH_HIGH = 85;
 
-/** Helpers UI */
 function setSquare(el, color){
   el.classList.remove('green','red','gray');
   el.classList.add(color);
@@ -347,7 +342,6 @@ function applySquare(el, color, title){
   if (el.title !== title) el.title = title;
 }
 
-/** Estocástico lento: devuelve último %K suavizado y %D */
 function stochasticKD(highs, lows, closes, kPeriod=8, kSmoothing=2, dPeriod=3) {
   const n = closes.length;
   if (n < kPeriod) return { k: null, d: null };
@@ -378,7 +372,6 @@ function stochasticKD(highs, lows, closes, kPeriod=8, kSmoothing=2, dPeriod=3) {
   return { k: lastK, d: lastD };
 }
 
-/** Fetch Binance */
 async function getKlinesBinance(symbol, interval, limit=200){
   const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`;
   const r = await fetch(url);
@@ -386,7 +379,6 @@ async function getKlinesBinance(symbol, interval, limit=200){
   const rows = await r.json();
   return { highs: rows.map(r=>+r[2]), lows: rows.map(r=>+r[3]), closes: rows.map(r=>+r[4]), src:'BIN' };
 }
-/** Fetch OKX (revierte orden) */
 async function getKlinesOKX(symbol, interval, limit=200){
   const url = `https://www.okx.com/api/v5/market/candles?instId=${symbol}&bar=${interval}&limit=${limit}`;
   const r = await fetch(url);
@@ -400,7 +392,6 @@ async function getKlinesOKX(symbol, interval, limit=200){
     src:'OKX'
   };
 }
-/** Fallback */
 async function getDataWithFallback(pairObj, tf){
   try{ return await getKlinesBinance(pairObj.binance, TF_TO_BINANCE[tf]); }
   catch(e1){
@@ -409,7 +400,6 @@ async function getDataWithFallback(pairObj, tf){
   }
 }
 
-/** Evalúa y prepara cambios en una fila (batch sin parpadeo) */
 async function evaluateAndPaintRow(tr, pairObj){
   const squares = tr.querySelectorAll('.miniTF-sq .sq');
   if (squares.length!==4 || !pairObj) return;
@@ -427,7 +417,7 @@ async function evaluateAndPaintRow(tr, pairObj){
                    : 'gray';
       const title = (k != null) ? `%K ${k.toFixed(1)} · ${tf} · ${d.src}` : `sin datos · ${tf}`;
       pending.push({ idx:i, color, title });
-      await new Promise(r=>setTimeout(r, 100)); // rate-limit friendly
+      await new Promise(r=>setTimeout(r, 100));
     }catch(e){
       pending.push({ idx:i, color:'gray', title:`sin datos · ${tf}` });
       console.warn('MiniTF %K error', tf, e);
@@ -442,7 +432,6 @@ async function evaluateAndPaintRow(tr, pairObj){
   });
 }
 
-/** Recorre todas las filas y aplica */
 async function paintAllVisibleRows(){
   let symbols=0, g=0, r=0, x=0;
   const trs = Array.from(document.querySelectorAll('#rows tr'));
@@ -453,7 +442,6 @@ async function paintAllVisibleRows(){
     const pairObj = getPairFromSymbol(sym);
     symbols++;
     await evaluateAndPaintRow(tr, pairObj);
-    // esperar al frame donde se aplican cambios y contar
     await new Promise(res=>requestAnimationFrame(()=>res()));
     tr.querySelectorAll('.miniTF-sq .sq').forEach(s=>{
       if(s.classList.contains('green')) g++;
@@ -464,14 +452,12 @@ async function paintAllVisibleRows(){
   console.log(`miniTF: símbolos revisados ${symbols} · verdes ${g} · rojos ${r} · grises ${x}`);
 }
 
-/** Hook a tu render() */
 const __originalRender__ = render;
 render = function(){
   __originalRender__();
   paintAllVisibleRows();
 };
 
-/** Capa inicial por si este bloque carga después del primer render */
 if (document.readyState !== 'loading') setTimeout(()=>paintAllVisibleRows(), 300);
 else document.addEventListener('DOMContentLoaded', ()=>setTimeout(()=>paintAllVisibleRows(), 300));
 </script>
