@@ -9,14 +9,12 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<meta name="robots" content="noindex,nofollow,max-snippet:-1,max-image-preview:large">
+
+<!-- NOINDEX solo staging -->
+<meta name="robots" content="noindex,nofollow,noarchive,max-snippet:-1,max-image-preview:large">
 <link rel="canonical" href="https://ixo.ar/ui/">
 
 <title>iXO · Cripto Monitor</title>
-<!-- NOINDEX solo staging -->
-<meta name="robots" content="noindex,nofollow,noarchive,max-snippet:-1,max-image-preview:large">
-<link rel="canonical" href="https://ixo.ar/">
-
 <link rel="icon" type="image/png" href="assets/favicon.png" sizes="32x32"/>
 
 <style>
@@ -79,9 +77,6 @@
   .sq.red{background:rgba(239,68,68,.85);border-color:rgba(239,68,68,.55)}
   .sq.gray{background:#3b445a}
 </style>
-
-<meta name="robots" content="noindex,nofollow,max-snippet:-1,max-image-preview:large">
-<link rel="canonical" href="https://ixo.ar/">
 </head>
 <body>
 <a href="/ui/index.html">Abrir UI</a>
@@ -331,10 +326,6 @@ const TF_TO_OKX     = { '1h':'1H', '4h':'4H', '1d':'1D', '1w':'1W' };
 const STOCH_LOW  = 15;
 const STOCH_HIGH = 85;
 
-function setSquare(el, color){
-  el.classList.remove('green','red','gray');
-  el.classList.add(color);
-}
 function getSquareColor(el){
   return el.classList.contains('green') ? 'green'
        : el.classList.contains('red')   ? 'red'
@@ -424,7 +415,7 @@ async function evaluateAndPaintRow(tr, pairObj){
                    : 'gray';
       const title = (k != null) ? `%K ${k.toFixed(1)} · ${tf} · ${d.src}` : `sin datos · ${tf}`;
       pending.push({ idx:i, color, title });
-      await new Promise(r=>setTimeout(r, 100));
+      await new Promise(r=>setTimeout(r, 100)); // suaviza llamadas
     }catch(e){
       pending.push({ idx:i, color:'gray', title:`sin datos · ${tf}` });
       console.warn('MiniTF %K error', tf, e);
