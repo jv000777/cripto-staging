@@ -1,31 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
   <head>
-	<!-- Íconos para móviles y favicon -->
-	<link rel="apple-touch-icon" sizes="180x180" href="/images/img.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/images/img.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/images/img.png">
-	<link rel="manifest" href="/manifest.json">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-	<meta name="apple-mobile-web-app-title" content="iXOpay Cripto Monitor">
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>iXOpay Cripto Monitor</title>
+	
+	<!-- ====== SEO & Branding ====== -->
+    <title>iXOpay | Monitor Cripto</title>
+    <meta name="description" content="Panel de control y monitor de criptomonedas de iXO. Datos en tiempo real, gráficos y análisis integrados." />
+    <meta name="keywords" content="iXOpay, criptomonedas, dashboard, cripto, control, panel, finanzas" />
+    <meta name="author" content="iXOpay Team" />
 
-    <!-- Metaetiquetas para SEO y redes sociales -->
-    <meta name="description" content="Monitoreo de criptomonedas con iXOpay Cripto Monitor" />
-    <meta name="keywords" content="cripto, criptomonedas, monitor, iXOpay, seguimiento" />
-    <meta name="author" content="iXOpay" />
-    <meta property="og:title" content="iXOpay Cripto Monitor" />
-    <meta property="og:description" content="Monitoreo de criptomonedas con iXOpay" />
+	<!-- ====== PWA Metadata ====== -->
+    <meta name="theme-color" content="#1d3557" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- ====== Icons & Favicons ====== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/img.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-light.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/img.png" />
+	
+	
+	 <!-- ====== Open Graph / Social ====== -->
+    <meta property="og:title" content="iXOpay - Monitor Cripto" />
+    <meta property="og:description" content="Panel de control financiero de iXO, con análisis y seguimiento cripto en tiempo real." />
     <meta property="og:image" content="/images/img.png" />
-    <meta property="og:url" content="https://staging.ixo.ar" />
-    <script type="module" crossorigin src="/assets/index-B3vN54GS.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BhAX_kdO.css">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://staging.ixo.ar/" />
+
+    <!-- ====== Fonts & Styles ====== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap" rel="stylesheet" />
+
+	<!-- ====== Fallback Styles ====== -->
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, system-ui, sans-serif;
+        background-color: #000;
+        color: #fff;
+      }
+      #root {
+        min-height: 100vh;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-B_-tQ4us.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-C4DBR0zQ.css">
   </head>
+
   <body>
+    <noscript>Necesitas habilitar JavaScript para ejecutar esta aplicación.</noscript>
     <div id="root"></div>
+
+    <!-- ====== Vite React Entry ====== -->
   </body>
 </html>

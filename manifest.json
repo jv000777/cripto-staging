@@ -1,25 +1,44 @@
 {
-  "name": "iXOpay Cripto Monitor",
+  "name": "iXOpay | Monitor Cripto",
   "short_name": "iXOpay",
+  "description": "Panel de control y monitor de criptomonedas de iXO. Datos en tiempo real, gráficos, análisis y rendimiento financiero.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#1d3557",
-  "orientation": "portrait",
+  "lang": "es",
+  "categories": ["finanzas", "criptomonedas", "dashboard", "análisis"],
   "icons": [
     {
       "src": "/images/img.png",
-      "sizes": "180x180",
+      "sizes": "72x72",
       "type": "image/png"
     },
     {
       "src": "/images/img.png",
-      "sizes": "152x152",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/img.png",
+      "sizes": "128x128",
       "type": "image/png"
     },
     {
       "src": "/images/img.png",
       "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/img.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/img.png",
+      "sizes": "384x384",
       "type": "image/png"
     },
     {
